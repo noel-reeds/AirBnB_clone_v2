@@ -2,6 +2,8 @@
 """ Console Module """
 import cmd
 import sys
+import uuid
+from datetime import datetime as dt
 from models.base_model import BaseModel
 from models.__init__ import storage
 from models.user import User
@@ -113,7 +115,7 @@ class HBNBCommand(cmd.Cmd):
         """ Overrides the emptyline method of CMD """
         pass
 
-    def do_create(self, *args, **kwargs):
+    def do_create(self, *args):
         """ Create an object of any class"""
         if not args:
             print("** class name missing **")
@@ -123,13 +125,20 @@ class HBNBCommand(cmd.Cmd):
         if cls_name not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        kwargs = args[1:]
-        if kwargs:
-            new_instance = HBNBCommand.classes[cls_name](kwargs)
+        params = args[1:]
+        if params:
+            kwargs = {}
+            for attr in params:
+                key, value = attr.split('=')
+                kwargs[key] = value.strip('""')
+            kwargs['id'] = str(uuid.uuid4())
+            kwargs['updated_at'] = dt.now().isoformat()
+            kwargs['created_at'] = dt.now().isoformat()
+            new_instance = HBNBCommand.classes[cls_name](**kwargs)
         else:
             new_instance = HBNBCommand.classes[cls_name]()
-        storage.save()
         print(new_instance.id)
+        storage.new(new_instance)
         storage.save()
 
     def help_create(self):
