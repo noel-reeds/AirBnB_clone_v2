@@ -53,7 +53,6 @@ class FileStorage:
         """Deletes an obj in __objects"""
         if obj:
             key = f'{obj.__class__.__qualname__}.{obj.id}'
-            print(key)
         else:
             return
         objects = FileStorage.__objects
