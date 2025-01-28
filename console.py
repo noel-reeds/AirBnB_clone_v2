@@ -131,11 +131,14 @@ class HBNBCommand(cmd.Cmd):
             for attr in params:
                 key, value = attr.split('=')
                 kwargs[key] = value.strip('""')
-            # all underscores _ must be replace by spaces
+            # all underscores _ must be replaced by spaces
             for key, value in kwargs.items():
                 if value.rfind('_'):
                     kwargs[key] = value.replace('_', ' ')
-            # add missing attrs from params
+                # double quote inside the value escaped with a '\'
+                if value.find('"'):
+                    pass
+            # add default attrs in params
             kwargs['id'] = str(uuid.uuid4())
             kwargs['updated_at'] = dt.now().isoformat()
             kwargs['created_at'] = dt.now().isoformat()
