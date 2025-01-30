@@ -54,3 +54,7 @@ class BaseModel:
         if _sa_instance_state in dictionary.keys():
             dictionary.pop(_sa_instance_state)
         return dictionary
+
+    def delete(self):
+        """Deletes the current instance from the storage"""
+        raise NotImplementedError
