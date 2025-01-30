@@ -16,10 +16,10 @@ class DBStorage:
         # creates a URL for engine create without escaping chars
         engine_url = URL.create(
             "mysql+mysqldb",
-            HBNB_MYSQL_USER=os.getenv(HBNB_MYSQL_USER),
-            HBNB_MYSQL_PWD=os.getenv(HBNB_MYSQL_PWD),
+            HBNB_MYSQL_USER=os.getenv('HBNB_MYSQL_USER'),
+            HBNB_MYSQL_PWD=os.getenv('HBNB_MYSQL_PWD'),
             HBNB_MYSQL_HOST='localhost',
-            HBNB_MYSQL_DB=os.getenv(HBNB_MYSQL_DB),
+            HBNB_MYSQL_DB=os.getenv('HBNB_MYSQL_DB'),
         )
         # creates engine
         self.__engine = create_engine(engine_url, pool_pre_ping=True)
