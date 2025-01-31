@@ -4,16 +4,17 @@ import uuid
 from datetime import datetime
 import sqlalchemy
 from sqlalchemy.orm import declarative_base
-from sqlalchemy import Column, String, Integer
+from sqlalchemy import Column, String, Integer, DateTime
+
 Base = declarative_base()
 
 
 class BaseModel:
     """A base class for all hbnb models"""
     # class attributes
-    id = Column(String(60), primary_key=True, nullable=False)
-    created_at = Column(datetime.utcnow(), nullable=False)
-    updated_at = Column(datetime.utcnow(), nullable=False)
+    id = Column(String(60), primary_key=True, nullable=False, unique=True)
+    created_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
+    updated_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
 
     def __init__(self, *args, **kwargs):
         """Instatntiates a new model"""
@@ -57,4 +58,5 @@ class BaseModel:
 
     def delete(self):
         """Deletes the current instance from the storage"""
-        raise NotImplementedError
+        from models import storage
+        storage.delete(self)
