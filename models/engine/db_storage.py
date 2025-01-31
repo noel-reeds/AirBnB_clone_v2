@@ -27,7 +27,7 @@ class DBStorage:
         # drop all tables if env is set to 'test'
         HBNB_ENV = os.getenv(HBNB_ENV)
         if HBNB_ENV is 'test':
-            Base.metadata.drop_all(bind=self.__engine)
+            Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
         """Query on the current database session"""
