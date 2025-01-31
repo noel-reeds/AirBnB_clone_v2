@@ -18,7 +18,7 @@ class DBStorage:
             "mysql+mysqldb",
             HBNB_MYSQL_USER=os.getenv('HBNB_MYSQL_USER'),
             HBNB_MYSQL_PWD=os.getenv('HBNB_MYSQL_PWD'),
-            HBNB_MYSQL_HOST='localhost',
+            HBNB_MYSQL_HOST=os.getenv('HBNB_MYSQL_HOST'),
             HBNB_MYSQL_DB=os.getenv('HBNB_MYSQL_DB'),
         )
         # creates engine
