@@ -16,17 +16,17 @@ class DBStorage:
         # creates a URL for engine create without escaping chars
         engine_url = URL.create(
             "mysql+mysqldb",
-            HBNB_MYSQL_USER=os.getenv('HBNB_MYSQL_USER'),
-            HBNB_MYSQL_PWD=os.getenv('HBNB_MYSQL_PWD'),
-            HBNB_MYSQL_HOST=os.getenv('HBNB_MYSQL_HOST'),
-            HBNB_MYSQL_DB=os.getenv('HBNB_MYSQL_DB'),
+            username=os.getenv('HBNB_MYSQL_USER'),
+            password=os.getenv('HBNB_MYSQL_PWD'),
+            host=os.getenv('HBNB_MYSQL_HOST'),
+            database=os.getenv('HBNB_MYSQL_DB'),
         )
         # creates engine
         self.__engine = create_engine(engine_url, pool_pre_ping=True)
 
         # drop all tables if env is set to 'test'
-        HBNB_ENV = os.getenv(HBNB_ENV)
-        if HBNB_ENV is 'test':
+        HBNB_ENV = os.getenv('HBNB_ENV')
+        if HBNB_ENV == 'test':
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
@@ -47,7 +47,7 @@ class DBStorage:
 
     def save(self):
         """Commit all changes of the current db session"""
-        self._session.commit()
+        self.__session.commit()
 
     def delete(self, obj=None):
         """Delete obj from current db session"""
