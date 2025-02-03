@@ -11,6 +11,7 @@ class FileStorage:
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
         if cls:
+            cls = cls.__qualname__
             cls_objs = {}
             for key in FileStorage.__objects.keys():
                 cls_name, obj_id = key.split('.')
