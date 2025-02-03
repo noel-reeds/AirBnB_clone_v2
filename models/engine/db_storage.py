@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """DB Storage Module for the HBnB"""
 import os
+from sqlalchemy.sql import text
 from sqlalchemy import create_engine, URL
+from models.base_model import Base
 from sqlalchemy.orm import declarative_base, sessionmaker, scoped_session
-
-Base = declarative_base()
 
 class DBStorage:
     """DB Storage - SQLAlchemy"""
@@ -31,15 +31,20 @@ class DBStorage:
 
     def all(self, cls=None):
         """Query on the current database session"""
+        from models.state import State
+        from models.city import City
         if cls:
-            objs = self.__session.query(cls).all()
+            objs = {}
+            res = self.__session.query(cls).all()
+            for obj in res:
+                if obj._sa_instance_state:
+                    del obj._sa_instance_state
+                key = f'{obj.__class__.__qualname__}.{obj.id}'
+                objs[key] = obj
             return objs
         else:
-            objs = self.__session.query(
-                           User, State, City,
-                           Amenity, Place, Review
-                           ).all()
-            return objs
+            objs = self.__session.query(State, City).all()
+            return
 
     def new(self, obj):
         """Add the object to the current db session"""
