@@ -33,6 +33,7 @@ class DBStorage:
         """Query on the current database session"""
         from models.state import State
         from models.city import City
+        from models.user import User
         if cls:
             objs = {}
             res = self.__session.query(cls).all()
@@ -43,7 +44,8 @@ class DBStorage:
                 objs[key] = obj
             return objs
         else:
-            objs = self.__session.query(State, City).all()
+            res = self.__session.query(State, City).all()
+            # modify res into a dictionary and return
             return
 
     def new(self, obj):
@@ -65,6 +67,7 @@ class DBStorage:
         """Create all tables in the database"""
         from models.state import State
         from models.city import City
+        from models.user import User
         Base.metadata.create_all(self.__engine)
         some_scope = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(some_scope)
