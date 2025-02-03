@@ -9,6 +9,8 @@ from sqlalchemy.orm import relationship
 class City(BaseModel, Base):
     """ The city class, contains state ID and name """
     __tablename__ = 'cities'
+    state_id = ""
+    name = ""
     # configure database for db_storage
     if os.getenv('HBNB_TYPE_STORAGE') == "db":
         state_id = Column(String(60),
@@ -18,4 +20,3 @@ class City(BaseModel, Base):
     else:
         from models.state import State
         state_id = State.id
-        name = ""
