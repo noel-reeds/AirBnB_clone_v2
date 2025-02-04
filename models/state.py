@@ -21,6 +21,7 @@ class State(BaseModel, Base):
         @property
         def cities(self):
             from models import storage
+            from models.city import City
             cities = []
             # retrieve the dictionary of objects
             for key, item in storage.all(City).items():

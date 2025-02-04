@@ -21,3 +21,5 @@ class User(BaseModel, Base):
         last_name = Column(String(128))
         places = relationship('Place', back_populates='user',
                                                 passive_deletes=True)
+        reviews = relationship('Review', back_populates='user',
+                                                passive_deletes=True)

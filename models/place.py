@@ -36,3 +36,18 @@ class Place(BaseModel, Base):
         longitude = Column(Float)
         user = relationship('User', back_populates='places')
         cities = relationship('City', back_populates='places')
+        reviews = relationship('Review', back_populates='place',
+                                            passive_deletes=True)
+    else:
+        reviews = []
+
+        @property
+        def reviews(self):
+            """returns the list of Review objs with place_id equals Place.id"""
+            from models import storage
+            from models.review import Review
+            for key, item in storage.all(Review).items():
+                if item.id is item.place_id:
+                    reviews.append(item)
+            return reviews
+
