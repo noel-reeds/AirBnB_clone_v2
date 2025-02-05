@@ -36,6 +36,7 @@ class DBStorage:
         from models.user import User
         from models.place import Place
         from models.review import Review
+        from models.amenity import Amenity
         if cls:
             objs = {}
             res = self.__session.query(cls).all()
@@ -70,8 +71,9 @@ class DBStorage:
         from models.state import State
         from models.city import City
         from models.user import User
-        from models.place import Place
+        from models.place import Place, place_amenity
         from models.review import Review
+        from models.amenity import Amenity
         Base.metadata.create_all(self.__engine)
         some_scope = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(some_scope)

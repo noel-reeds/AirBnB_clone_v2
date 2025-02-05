@@ -2,9 +2,17 @@
 """ Place Module for HBNB project """
 import os
 from models.base_model import BaseModel, Base
-from sqlalchemy import String, Column, Integer, Float, ForeignKey
+from sqlalchemy import String, Column, Integer, Float, ForeignKey, Table
 from sqlalchemy.orm import relationship
 
+
+# an association table for many-to-many rlship
+place_amenity = Table('place_amenity', Base.metadata,
+    Column('place_id', String(60), ForeignKey('places.id'),
+                        primary_key=True, nullable=False),
+    Column('amenity_id',
+    String(60), ForeignKey('amenities.id'),
+                        primary_key=True, nullable=False))
 
 class Place(BaseModel, Base):
     """ A place to stay """
@@ -38,6 +46,8 @@ class Place(BaseModel, Base):
         cities = relationship('City', back_populates='places')
         reviews = relationship('Review', back_populates='place',
                                             passive_deletes=True)
+        amenities = relationship('Amenity', secondary=place_amenity,
+                    back_populates='place_amenities',viewonly=False)
     else:
         reviews = []
 
@@ -51,3 +61,18 @@ class Place(BaseModel, Base):
                     reviews.append(item)
             return reviews
 
+        def get_amenities(self):
+            """returns the list of Amenity instances"""
+            return amenities
+
+        amenities = []
+        def set_amenities(self):
+            """Appends amenities linked to a Place"""
+            from models import storage
+            from models.amenity import Amenity
+            for k, v in storage.all(Amenity).items():
+            # all amenities from the same place
+            # to be grouped here..
+            # logic is incomplete
+                if place_amenity.amenity_id is v.id:
+                    amenities.append(v)
