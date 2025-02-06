@@ -15,3 +15,8 @@ else:
     from models.engine.file_storage import FileStorage
     storage = FileStorage()
     storage.reload()
+
+__all__ = [ "state", "amenity", "city",
+            "place", "review", "user",
+            "base_model"
+         ]
