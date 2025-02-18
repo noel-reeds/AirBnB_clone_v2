@@ -7,7 +7,7 @@ if [ ! -x /usr/sbin/nginx ]; then
     curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor \
         | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
     echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
-    http://nginx.org/packages/ubuntu `lsb_release -cs` nginx" \
+    http://nginx.org/packages/ubuntu $(lsb_release -cs) nginx" \
         | sudo tee /etc/apt/sources.list.d/nginx.list
 
     sudo apt update -y
@@ -26,15 +26,6 @@ if [ ! -d "/data/" ]; then
     sudo mkdir /data/web_static/shared/
     sudo mkdir /data/web_static/releases/test/
     sudo touch /data/web_static/releases/test/index.html
-    # append fake HTML content to test Nginx configurations
-    sudo echo
-        "<html>
-        <head>
-        </head>
-            <body>
-                ALX
-            </body>
-        </html>" > /data/web_static/releases/test/index.html
 fi
 
 # creates a symlink
@@ -50,10 +41,11 @@ fi
 sudo chown -R ubuntu:ubuntu /data/
 
 # location directive to serve static content
-dir="\n\tserver {\n\t\tlocation /hbnb_static {\n\t\t\talias /data/web_static/current\n\t\t}\n\t}\n}"
+dir="\n\tserver {\n\t\tlocation /hbnb_static {\n\t\t\talias /data/web_static/current\n\t\t\t}\n\t\t}\n\t}"
 
 # configure Nginx to serve /data/web_static/current/ to hbnb_static
 sudo sed -i "32i\\$dir" /etc/nginx/nginx.conf
+sudo sed -i 's/\t/    /g' /etc/nginx/nginx.conf
 
 # restart nginx
-sudo service nginx -s reload
+sudo service nginx reload
