@@ -41,7 +41,7 @@ fi
 sudo chown -R ubuntu:ubuntu /data/
 
 # location directive to serve static content
-dir="\n\tserver {\n\t\tlocation /hbnb_static {\n\t\t\talias /data/web_static/current\n\t\t\t}\n\t\t}\n\t}"
+dir="\n\tserver {\n\t\tlisten 80;\n\t\tserver_name 18.206.208.156;\n\n\t\tlocation /hbnb_static {\n\t\t\talias /data/web_static/current/;\n\t\tautoindex off;\n\t\t\t}\n\t\t}"
 
 # configure Nginx to serve /data/web_static/current/ to hbnb_static
 sudo sed -i "32i\\$dir" /etc/nginx/nginx.conf
