@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 # installs nginx ubuntu server
+
+#server public ip address
+ip_addr=$(curl -s ifconfig.me)
+
 if [ ! -x /usr/sbin/nginx ]; then
     echo "nginx not installed.."
     echo "installing nginx.."
@@ -41,10 +45,11 @@ fi
 sudo chown -R ubuntu:ubuntu /data/
 
 # location directive to serve static content
-dir="\n\tserver {\n\t\tlisten 80;\n\t\tserver_name 18.206.208.156;\n\n\t\tlocation /hbnb_static {\n\t\t\talias /data/web_static/current/;\n\t\tautoindex off;\n\t\t\t}\n\t\t}"
+dir="\tserver {\n\t\tlisten 80;\n\t\tserver_name $ip_addr localhost;\n\n\t\tlocation /hbnb_static {\n\t\t\talias /data/web_static/current/;\n\t\tautoindex off;\n\t\t\t}\n\t\t}\n"
 
 # configure Nginx to serve /data/web_static/current/ to hbnb_static
-sudo sed -i "32i\\$dir" /etc/nginx/nginx.conf
+sudo sed -i '31s/include/#include/g' /etc/nginx/nginx.conf
+sudo sed -i "15i\\$dir" /etc/nginx/nginx.conf
 sudo sed -i 's/\t/    /g' /etc/nginx/nginx.conf
 
 # restart nginx
