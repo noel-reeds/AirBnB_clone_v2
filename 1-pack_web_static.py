@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 """creates an archive from web_static"""
-import os, tarfile
+import os
+import tarfile
 from datetime import datetime as dt
 from fabric.api import local, run
+
 
 def do_pack():
     """check if versions dir exists and create."""
@@ -13,4 +15,5 @@ def do_pack():
     if not tarfile.is_tarfile(_filepath):
         return None
     else:
-        print(f"web_static packed: {_filepath} -> {os.path.getsize(_filepath)}Bytes")
+        print(f"web_static packed: {_filepath} \
+-> {os.path.getsize(_filepath)}Bytes")
