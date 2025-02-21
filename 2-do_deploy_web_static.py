@@ -24,5 +24,8 @@ web_static/* /data/web_static/releases/{_archive_path}/")
         run("rm -rf /data/web_static/current")
         run(f"ln -s /data/web_static/releases/{_archive_path}/ \
 /data/web_static/current")
+        print("New version deployed!")
+        return True
     except Exception as err:
         print(err)
+        return False
