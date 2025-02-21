@@ -16,7 +16,7 @@ if [ ! -x /usr/sbin/nginx ]; then
 
     sudo apt update -y
     sudo apt upgrade -y
-    sudo apt install nginx
+    sudo apt install nginx -y
 fi
 
 # start nginx
@@ -48,7 +48,7 @@ sudo chown -R ubuntu:ubuntu /data/
 dir="\tserver {\n\t\tlisten 80;\n\t\tserver_name $ip_addr localhost;\n\n\t\tlocation /hbnb_static {\n\t\t\talias /data/web_static/current/;\n\t\tautoindex off;\n\t\t\t}\n\t\t}\n"
 
 # configure Nginx to serve /data/web_static/current/ to hbnb_static
-sudo sed -i '31s/include/#include/g' /etc/nginx/nginx.conf
+sudo sed -i '31s/include/#include/' /etc/nginx/nginx.conf
 sudo sed -i "15i\\$dir" /etc/nginx/nginx.conf
 sudo sed -i 's/\t/    /g' /etc/nginx/nginx.conf
 
