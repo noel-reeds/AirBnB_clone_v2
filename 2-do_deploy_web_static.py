@@ -5,7 +5,7 @@ import os
 from fabric.api import run, sudo, env, put
 
 env.user = "ubuntu"
-env.hosts = ["44.203.126.231", "52.91.254.211"]
+env.hosts = ["3.95.132.184", "34.201.53.157"]
 
 
 def do_deploy(archive_path):
@@ -16,11 +16,13 @@ def do_deploy(archive_path):
         _arch_name = archive_path.split('/')[1]
         put(archive_path, "/tmp/")
         run(f"mkdir /data/web_static/releases/{_archive_path}/")
-        run(f"tar -xzf /tmp/{_arch_name} -C\
-            /data/web_static/releases/{_archive_path}/")
-        run("rm -rf /tmp/{_arch_name}")
+        run(f"tar -xzf /tmp/{_arch_name} -C \
+/data/web_static/releases/{_archive_path}/")
+        run(f"mv /data/web_static/releases/{_archive_path}/\
+web_static/* /data/web_static/releases/{_archive_path}/")
+        run("rm -rf /tmp/{}".format(_arch_name))
         run("rm -rf /data/web_static/current")
-        run("ln -s /data/web_static/releases/{_archive_path}/ \
-            /data/web_static/current")
+        run(f"ln -s /data/web_static/releases/{_archive_path}/ \
+/data/web_static/current")
     except Exception as err:
         print(err)
