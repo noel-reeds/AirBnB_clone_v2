@@ -5,8 +5,20 @@ import os
 from fabric.api import run, sudo, env, put
 
 env.user = "ubuntu"
-env.hosts = ["3.95.132.184", "34.201.53.157"]
+env.hosts = ["18.207.218.204", "18.212.70.155"]
 
+def do_pack():
+    """check if versions dir exists and create."""
+    if not os.path.isdir('./versions'):
+        local("mkdir versions")
+    _filepath = f"versions/web_static_{dt.now().strftime('%Y%m%d%H%M%S')}.tgz"
+    local(f"tar -cvzf {_filepath} web_static")
+    if not tarfile.is_tarfile(_filepath):
+        return None
+    else:
+        print(f"web_static packed: {_filepath} \
+-> {os.path.getsize(_filepath)}Bytes")
+        return _filepath
 
 def do_deploy(archive_path):
     """deploys web static pages"""
