@@ -17,3 +17,4 @@ def do_pack():
     else:
         print(f"web_static packed: {_filepath} \
 -> {os.path.getsize(_filepath)}Bytes")
+        return _filepath
