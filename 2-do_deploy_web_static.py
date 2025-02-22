@@ -7,6 +7,7 @@ from fabric.api import run, sudo, env, put
 env.user = "ubuntu"
 env.hosts = ["18.207.218.204", "18.212.70.155"]
 
+
 def do_pack():
     """check if versions dir exists and create."""
     if not os.path.isdir('./versions'):
@@ -19,6 +20,7 @@ def do_pack():
         print(f"web_static packed: {_filepath} \
 -> {os.path.getsize(_filepath)}Bytes")
         return _filepath
+
 
 def do_deploy(archive_path):
     """deploys web static pages"""
