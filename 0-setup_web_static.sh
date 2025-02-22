@@ -45,7 +45,7 @@ fi
 sudo chown -R ubuntu:ubuntu /data/
 
 # location directive to serve static content
-dir="\tserver {\n\t\tlisten 80;\n\t\tserver_name $ip_addr localhost;\n\n\t\tlocation /hbnb_static {\n\t\t\talias /data/web_static/current/;\n\t\tautoindex off;\n\t\t\t}\n\t\t}\n"
+dir="\tserver {\n\t\tlisten 80;\n\t\tserver_name $ip_addr localhost;\n\n\t\tlocation /hbnb_static {\n\t\t\talias /data/web_static/current/;\n\t\t\tautoindex off;\n\t\t\t}\n\t\t}\n"
 
 # configure Nginx to serve /data/web_static/current/ to hbnb_static
 sudo sed -i '31s/include/#include/' /etc/nginx/nginx.conf
