@@ -1,3 +1,10 @@
+__pycache__/
+core
+fabfile.py
+fabfile/
+index.html
+main.py
+versions/
 main_*
 .console.py.swp
 .gitignore
