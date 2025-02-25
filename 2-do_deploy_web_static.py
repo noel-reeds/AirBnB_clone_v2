@@ -4,8 +4,7 @@ import re
 import os
 from fabric.api import run, sudo, env, put
 
-env.user = "ubuntu"
-env.hosts = ["18.207.218.204", "18.212.70.155"]
+env.hosts = ['100.26.201.108', '34.227.113.117']
 
 
 def do_pack():
