@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """DB Storage Module for the HBnB"""
 import os
 from sqlalchemy.sql import text
