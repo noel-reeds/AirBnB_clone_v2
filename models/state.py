@@ -5,6 +5,7 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 
+
 class State(BaseModel, Base):
     """ State class """
     __tablename__ = 'states'
@@ -13,8 +14,7 @@ class State(BaseModel, Base):
     # for db_storage db, configure database.
     if os.getenv('HBNB_TYPE_STORAGE') == "db":
         name = Column(String(128), nullable=False)
-        cities = relationship('City', back_populates='state',
-                                passive_deletes=True)
+        cities = relationship('City', back_populates='state', passive_deletes=True)
     else:
         cities = []
 
