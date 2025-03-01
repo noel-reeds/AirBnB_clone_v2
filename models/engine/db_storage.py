@@ -6,6 +6,7 @@ from sqlalchemy import create_engine, URL
 from models.base_model import Base
 from sqlalchemy.orm import declarative_base, sessionmaker, scoped_session
 
+
 class DBStorage:
     """DB Storage - SQLAlchemy"""
     __engine = None
@@ -78,3 +79,7 @@ class DBStorage:
         some_scope = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(some_scope)
         self.__session = Session()
+
+    def close(self):
+        """discards a session"""
+        self.__session.remove()
