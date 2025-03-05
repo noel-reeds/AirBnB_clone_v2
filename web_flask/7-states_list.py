@@ -58,6 +58,7 @@ def odd_or_even(n):
     """display a HTML page only if n is an integer"""
     return render_template('6-number_odd_or_even.html', n=n)
 
+
 @app.route("/states_list")
 def list_states():
     """lists US states"""
@@ -67,7 +68,7 @@ def list_states():
 
 
 @app.teardown_appcontext
-def teardown_appcontext():
+def teardown_appcontext(exception=None):
     """closes storage conns after a request context"""
     storage.close()
 
