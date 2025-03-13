@@ -9,7 +9,6 @@ app.url_map.strict_slashes = False
 app.jinja_env.lstrip_blocks = True
 app.jinja_env.trim_blocks = True
 
-
 @app.route("/")
 def hello():
     """A basic string returned in Flask"""
@@ -63,8 +62,9 @@ def odd_or_even(n):
 def list_states():
     """lists US states"""
     # query storage for states
-    states = len(storage.all(State))
-    return render_template('7-states_list.html', states=states)
+    states = storage.all(State)
+    num = len(storage.all(State))
+    return render_template('7-states_list.html', states=states, num=num)
 
 
 @app.teardown_appcontext
