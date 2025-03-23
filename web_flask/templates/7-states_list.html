@@ -4,13 +4,13 @@
         <TITLE>HBNB</TITLE>
     </HEAD>
     <BODY>
-    {% if num > 0 %}
         <H1>States</H1>
+        {% if num > 0 %}
         <UL>
         {% for state in states.values() %}
-            <LI>{{ state.id }}: <B>{{ state.name }}</B></LI>
+            <LI>State: {{ state.id }}: <B>{{ state.name }}</B></LI>
         {% endfor %}
         </UL>
-    {% endif %}
+        {% endif %}
     </BODY>
 </HTML>
