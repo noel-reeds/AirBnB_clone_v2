@@ -1,3 +1,5 @@
+.hbnb
+*.sql
 __pycache__/
 core
 fabfile.py
