@@ -9,6 +9,7 @@ app.url_map.strict_slashes = False
 app.jinja_env.lstrip_blocks = True
 app.jinja_env.trim_blocks = True
 
+
 @app.route("/")
 def hello():
     """A basic string returned in Flask"""
