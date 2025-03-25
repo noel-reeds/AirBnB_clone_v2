@@ -5,12 +5,12 @@
     </HEAD>
     <BODY>
         <H1>States</H1>
-        {% if num > 0 %}
-        <UL>
-        {% for state in states.values() %}
-            <LI>State: {{ state.id }}: <B>{{ state.name }}</B></LI>
-        {% endfor %}
-        </UL>
-        {% endif %}
+            <UL>
+            {% for state in states.values() %}
+                <LI>State: {{ state.id }}: <B>{{ state.name }}</B></LI>
+            {% else %}
+                <LI>no states found</LI>
+            {% endfor %}
+            </UL>
     </BODY>
 </HTML>

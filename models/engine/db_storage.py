@@ -1,10 +1,9 @@
 #!/usr/bin/python3
 """DB Storage Module for the HBnB"""
 import os
-from sqlalchemy.sql import text
 from sqlalchemy import create_engine, URL
 from models.base_model import Base
-from sqlalchemy.orm import declarative_base, sessionmaker, scoped_session
+from sqlalchemy.orm import sessionmaker, scoped_session
 
 
 class DBStorage:
