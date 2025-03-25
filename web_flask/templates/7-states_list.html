@@ -6,7 +6,7 @@
     <BODY>
         <H1>States</H1>
             <UL>
-            {% for state in states.values() %}
+            {% for state in states.values()|sort(attribute="name") %}
                 <LI>State: {{ state.id }}: <B>{{ state.name }}</B></LI>
             {% else %}
                 <LI>no states found</LI>
