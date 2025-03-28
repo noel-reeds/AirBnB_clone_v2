@@ -9,7 +9,7 @@
         {% for state in states.values()|sort(attribute="name") %}
             <LI>State: {{ state.id }}: <B>{{ state.name }}</B></LI>
         {% else %}
-            <LI>no states found</LI>
+            {# no states #}
         {% endfor %}
         </UL>
     </BODY>
