@@ -37,17 +37,24 @@ class DBStorage:
         from models.place import Place
         from models.review import Review
         from models.amenity import Amenity
+        # dictionary of objects to be returned
+        objs = {}
         if cls:
-            objs = {}
             res = self.__session.query(cls).all()
             for obj in res:
                 key = f'{obj.__class__.__qualname__}.{obj.id}'
                 objs[key] = obj
             return objs
         else:
-            res = self.__session.query(State, City).all()
-            # modify res into a dictionary and return
-            return
+            # if no object, query all types of objects
+            items = [State, City, User, Place, Amenity, Review]
+            for item in items:
+                item_objs = self.__session.query(item).all()
+                for obj in item_objs:
+                    key = f'{obj.__class__.__qualname__}.{obj.id}'
+                    objs[key] = obj
+            return objs
+
 
     def new(self, obj):
         """Add the object to the current db session"""
