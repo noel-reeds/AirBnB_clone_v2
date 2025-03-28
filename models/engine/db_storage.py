@@ -41,10 +41,6 @@ class DBStorage:
             objs = {}
             res = self.__session.query(cls).all()
             for obj in res:
-                """
-                if obj._sa_instance_state:
-                    del obj._sa_instance_state
-                """
                 key = f'{obj.__class__.__qualname__}.{obj.id}'
                 objs[key] = obj
             return objs
